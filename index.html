@@ -1,0 +1,182 @@
+```html
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zesto | Coffee & Breakfast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        .brand-font { font-family: 'Playfair Display', serif; }
+        .category-btn.active { background-color: #7c2d12; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .hero-bg { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <!-- Language & Header -->
+    <nav class="fixed w-full z-50 glass shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold brand-font text-orange-900">ZESTO</div>
+            
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex gap-2 bg-stone-200 p-1 rounded-lg text-sm">
+                    <button onclick="setLanguage('az')" id="lang-az" class="px-3 py-1 rounded-md transition-all">AZ</button>
+                    <button onclick="setLanguage('ru')" id="lang-ru" class="px-3 py-1 rounded-md transition-all">RU</button>
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-3 py-1 rounded-md transition-all">EN</button>
+                </div>
+                <a href="tel:+994504770405" class="hidden sm:block bg-orange-800 text-white px-4 py-2 rounded-full text-sm hover:bg-orange-900 transition">
+                    <i class="fas fa-phone mr-2"></i>+994 50 477 04 05
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg h-[70vh] flex items-center justify-center text-center text-white px-4">
+        <div>
+            <h1 class="text-5xl md:text-7xl brand-font mb-4" data-key="hero-title">Zesto Coffee</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto opacity-90" data-key="hero-subtitle">Experience the perfect blend of flavor and comfort.</p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#menu" class="bg-orange-700 hover:bg-orange-800 text-white px-8 py-3 rounded-full font-semibold transition" data-key="menu-btn">Menyuya Bax</a>
+                <a href="#location" class="bg-white hover:bg-stone-100 text-stone-900 px-8 py-3 rounded-full font-semibold transition" data-key="location-btn">Ünvan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats/Info Bar -->
+    <div class="container mx-auto px-4 -mt-12 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-6 rounded-2xl shadow-xl flex items-center gap-4">
+                <div class="text-3xl text-orange-700"><i class="fas fa-star"></i></div>
+                <div>
+                    <div class="text-xl font-bold">9/10</div>
+                    <div class="text-sm text-stone-500" data-key="rating-desc">Müştəri Reytinqi</div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-xl flex items-center gap-4">
+                <div class="text-3xl text-orange-700"><i class="fas fa-wifi"></i></div>
+                <div>
+                    <div class="text-xl font-bold">Free Wi-Fi</div>
+                    <div class="text-sm text-stone-500" data-key="wifi-desc">Sürətli internet</div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-xl flex items-center gap-4">
+                <div class="text-3xl text-orange-700"><i class="fas fa-clock"></i></div>
+                <div>
+                    <div class="text-xl font-bold">09:00 - 22:00</div>
+                    <div class="text-sm text-stone-500" data-key="time-desc">İş saatları</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl brand-font text-stone-900 mb-2" data-key="menu-title">Bizim Menyu</h2>
+            <div class="w-20 h-1 bg-orange-700 mx-auto"></div>
+        </div>
+
+        <!-- Dynamic Filters -->
+        <div class="flex flex-wrap justify-center gap-3 mb-12" id="category-filters">
+            <button onclick="filterMenu('all')" class="category-btn active px-6 py-2 rounded-full border border-orange-800 transition" data-key="cat-all">Hamısı</button>
+            <button onclick="filterMenu('coffee')" class="category-btn px-6 py-2 rounded-full border border-orange-800 transition" data-key="cat-coffee">Qəhvələr</button>
+            <button onclick="filterMenu('food')" class="category-btn px-6 py-2 rounded-full border border-orange-800 transition" data-key="cat-food">Yeməklər</button>
+            <button onclick="filterMenu('special')" class="category-btn px-6 py-2 rounded-full border border-orange-800 transition" data_key="cat-special">Xüsusi</button>
+        </div>
+
+        <!-- Menu Grid -->
+        <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Items injected by JS -->
+        </div>
+    </section>
+
+    <!-- About & Features -->
+    <section class="py-20 bg-stone-100">
+        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cafe Interior" class="rounded-3xl shadow-2xl">
+            </div>
+            <div>
+                <h2 class="text-4xl brand-font mb-6" data-key="about-title">Niyə Zesto?</h2>
+                <ul class="space-y-4 text-lg">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-orange-700 mt-1"></i>
+                        <span data-key="feat-1">Rahat işləmək və dərs oxumaq üçün ideal mühit.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-orange-700 mt-1"></i>
+                        <span data-key="feat-2">Gözəl yay terrası və açıq hava sahəsi.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-check-circle text-orange-700 mt-1"></i>
+                        <span data-key="feat-3">Beynəlxalq heyət (AZ, RU, EN, TR).</span>
+                    </li>
+                </ul>
+                <div class="mt-8 p-6 bg-white rounded-2xl border-l-4 border-orange-700 shadow-md">
+                    <p class="italic text-stone-600" data-key="quote">"Zesto - həm dərs oxumaq, həm də dostlarla vaxt keçirmək üçün ən sevimli məkanımızdır."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer/Location -->
+    <footer id="location" class="bg-stone-900 text-stone-300 py-16">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-12">
+            <div>
+                <h3 class="text-2xl brand-font text-white mb-6">ZESTO</h3>
+                <p class="mb-4" data-key="footer-addr">Bakı şəhəri, Nizami rayonu, Özbəkistan küçəsi</p>
+                <p class="mb-4"><i class="fas fa-phone mr-2 text-orange-500"></i> +994 50 477 04 05</p>
+                <div class="flex gap-4 text-xl">
+                    <a href="#" class="hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-orange-500"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-6" data-key="footer-services">Xidmətlər</h4>
+                <ul class="space-y-2">
+                    <li>Takeaway (Paket xidməti)</li>
+                    <li>Wolt Delivery</li>
+                    <li>Yay Terrası</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-6" data-key="footer-hours">İş Rejimi</h4>
+                <p>Hər gün: 09:00 - 22:00</p>
+                <p class="text-sm text-stone-500 mt-2">Səhər yeməyi: 09:00 - 14:00</p>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-16 pt-8 border-t border-stone-800 text-center text-sm">
+            &copy; 2024 Zesto Coffee. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const menuData = [
+            { id: 1, category: 'coffee', name_az: 'Raf (Vanil/Lavanda)', name_ru: 'Раф (Ваниль/Лаванда)', name_en: 'Raf (Vanilla/Lavender)', price: '6.50', img: 'https://images.unsplash.com/photo-1536441872-11110228201a?auto=format&fit=crop&w=400&q=80' },
+            { id: 2, category: 'coffee', name_az: 'Caramel Macchiato', name_ru: 'Карамель Маккиато', name_en: 'Caramel Macchiato', price: '7.00', img: 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=400&q=80' },
+            { id: 3, category: 'coffee', name_az: 'Spanish Latte', name_ru: 'Испанский Латте', name_en: 'Spanish Latte', price: '7.50', img: 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=400&q=80' },
+            { id: 4, category: 'coffee', name_az: 'Matça', name_ru: 'Матча', name_en: 'Matcha', price: '6.00', img: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=400&q=80' },
+            { id: 5, category: 'food', name_az: 'Chicken Ciabatta', name_ru: 'Чиабатта с курицей', name_en: 'Chicken Ciabatta', price: '9.00', img: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=400&q=80' },
+            { id: 6, category: 'food', name_az: 'Egg Benedict', name_ru: 'Бенедикт', name_en: 'Egg Benedict', price: '11.00', img: 'https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=400&q=80' },
+            { id: 7, category: 'food', name_az: 'Diet Chocolate Crepe', name_ru: 'Диетический блинчик', name_en: 'Diet Chocolate Crepe', price: '8.50', img: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&w=400&q=80' },
+            { id: 8, category: 'special', name_az: 'Bubble Coffee', name_ru: 'Бабл Кофе', name_en: 'Bubble Coffee', price: '8.00', img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=400&q=80' },
+            { id: 9, category: 'special', name_az: 'Kruasan', name_ru: 'Круассан', name_en: 'Croissant', price: '4.50', img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=400&q=80' },
+        ];
+
+        let currentLang = 'az';
+
+        const translations = {
+            az: {
+                'hero-title': 'Zesto Kafe',
+                'hero-subtitle': 'Dadın və rahatlığın mükəmməl vəhdəti.',
+                'menu-btn': 'Menyuya Bax',
+                'location-btn': 'Ünvan',
+                'rating-desc': 'Müştəri Reytinqi',
+                'wifi-desc': 'Sürətli internet',
+                'time
