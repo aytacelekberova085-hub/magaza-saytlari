@@ -1,175 +1,171 @@
+```html
 <!DOCTYPE html>
 <html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zesto - Kafe Qəhvəxana</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>Zesto Kafe-Qəhvəxana</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; }
-        .serif { font-family: 'Playfair Display', serif; }
-        .lang-hidden { display: none; }
-        .active-lang { display: block; }
-        .category-btn.active { background-color: #8b5e3c; color: white; }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button.active {
+            background-color: #6B7280;
+            color: white;
+        }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal text-gray-800">
 
-    <!-- Language Switcher -->
-    <div class="fixed top-4 right-4 z-50 flex gap-2 bg-white p-2 rounded-full shadow-lg border border-stone-200">
-        <button onclick="setLanguage('az')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold transition-all hover:bg-stone-100" id="btn-az">AZ</button>
-        <button onclick="setLanguage('ru')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold transition-all hover:bg-stone-100" id="btn-ru">RU</button>
-        <button onclick="setLanguage('en')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold transition-all hover:bg-stone-100" id="btn-en">EN</button>
+    <!-- Language Selector -->
+    <div class="bg-gray-800 text-white p-4 flex justify-end gap-4">
+        <button class="lang-switcher cursor-pointer hover:text-gray-300" data-lang="az">AZ</button>
+        <button class="lang-switcher cursor-pointer hover:text-gray-300" data-lang="ru">RU</button>
+        <button class="lang-switcher cursor-pointer hover:text-gray-300" data-lang="en">EN</button>
     </div>
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-stone-200">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-3xl font-bold serif text-stone-900 tracking-tight">ZESTO<span class="text-amber-700">.</span></div>
-            <div class="hidden md:flex gap-8 font-medium text-sm uppercase tracking-wider">
-                <a href="#home" class="hover:text-amber-700 transition-colors" data-i18n="nav-home">Ana Səhifə</a>
-                <a href="#menu" class="hover:text-amber-700 transition-colors" data-i18n="nav-menu">Menyu</a>
-                <a href="#about" class="hover:text-amber-700 transition-colors" data-i18n="nav-about">Haqqımızda</a>
-                <a href="#contact" class="hover:text-amber-700 transition-colors" data-i18n="nav-contact">Əlaqə</a>
-            </div>
-            <a href="tel:+994504770405" class="bg-stone-900 text-white px-5 py-2 rounded-full text-sm hover:bg-amber-800 transition-all">
-                <i class="fa-solid fa-phone mr-2"></i> +994 50 477 04 05
-            </a>
+    <!-- Header Section -->
+    <header class="bg-white shadow-lg p-6">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="text-3xl font-bold text-gray-900 mb-4 md:mb-0">Zesto</div>
+            <nav class="space-x-4">
+                <a href="#about" class="text-gray-700 hover:text-gray-900 font-medium lang-text" data-lang-key="about">Haqqımızda</a>
+                <a href="#menu" class="text-gray-700 hover:text-gray-900 font-medium lang-text" data-lang-key="menu">Menyu</a>
+                <a href="#reviews" class="text-gray-700 hover:text-gray-900 font-medium lang-text" data-lang-key="reviews">Rəylər</a>
+                <a href="#contact" class="text-gray-700 hover:text-gray-900 font-medium lang-text" data-lang-key="contact">Əlaqə</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section id="home" class="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1501339847302-53555367a33a?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover brightness-50" alt="Cafe Interior">
-        <div class="relative z-10 text-center text-white px-4">
-            <h1 class="text-5xl md:text-7xl serif mb-6 leading-tight" data-i18n="hero-title">Səhərinizə Zəriflik Qatın</h1>
-            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto font-light opacity-90" data-i18n="hero-subtitle">Bakının mərkəzində, rahat mühit, premium qəhvələr və ləzzətli səhər yeməkləri.</p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="#menu" class="bg-amber-700 hover:bg-amber-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all" data-i18n="hero-btn-menu">Menyunu Kəşf Et</a>
-                <a href="#about" class="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white border border-white/50 px-8 py-4 rounded-full text-lg font-semibold transition-all" data-i18n="hero-btn-about">Bizim Haqqımızda</a>
+    <section class="relative h-96 bg-cover bg-center" style="background-image: url('https://source.unsplash.com/1600x900/?coffee-shop-interior');">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="relative z-10 flex items-center justify-center h-full">
+            <div class="text-center text-white p-4">
+                <h1 class="text-5xl font-extrabold mb-4 lang-text" data-lang-key="hero_title">Zesto: Sizin Rahat Qəhvə Dünyanız</h1>
+                <p class="text-xl mb-6 lang-text" data-lang-key="hero_subtitle">Dadlı qəhvələr, ləzzətli yeməklər və rahat atmosfer.</p>
+                <a href="#menu" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-lg shadow-lg uppercase tracking-wider lang-text" data-lang-key="view_menu">Menyuya Bax</a>
             </div>
         </div>
     </section>
 
-    <!-- Features -->
-    <section class="py-20 bg-stone-100">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            <div class="p-8 rounded-3xl bg-white shadow-sm hover:shadow-md transition-all">
-                <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
-                    <i class="fa-solid fa-wifi"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3" data-i18n="feat1-title">İş və Təhsil</h3>
-                <p class="text-stone-500" data-i18n="feat1-desc">Pulsuz Wi-Fi və sakit mühit noutbukla işləmək üçün idealdır.</p>
-            </div>
-            <div class="p-8 rounded-3xl bg-white shadow-sm hover:shadow-md transition-all">
-                <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
-                    <i class="fa-solid fa-sun"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3" data-i18n="feat2-title">Yay Terrası</h3>
-                <p class="text-stone-500" data-i18n="feat2-desc">Açıq havada, təbiətlə iç-içə rahat istirahət sahəsi.</p>
-            </div>
-            <div class="p-8 rounded-3xl bg-white shadow-sm hover:shadow-md transition-all">
-                <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
-                    <i class="fa-solid fa-language"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3" data-i18n="feat3-title">Çoxdillilik</h3>
-                <p class="text-stone-500" data-i18n="feat3-desc">AZ, RU, ENG, TR dillərində peşəkar xidmət təklif edirik.</p>
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8 lang-text" data-lang-key="about_us_title">Haqqımızda</h2>
+            <div class="max-w-3xl mx-auto">
+                <p class="text-lg text-gray-700 mb-4 lang-text" data-lang-key="about_us_desc_1">
+                    "Zesto" sadəcə bir qəhvəxana deyil, həm də rahat işləmək, dərs oxumaq və ya dostlarla vaxt keçirmək üçün ideal bir məkandır. 
+                    Pulsuz Wi-Fi, rahat yay terrası və səmimi interyerimizlə müştərilərimizin məmnuniyyətini ön planda tuturuq.
+                </p>
+                <p class="text-lg text-gray-700 mb-4 lang-text" data-lang-key="about_us_desc_2">
+                    Heyətimiz Azərbaycan dili ilə yanaşı, rus, ingilis, türk və digər xarici dillərdə də yüksək səviyyədə xidmət göstərir. 
+                    Ünvanımız: Bakı şəhəri, Nizami rayonu, Özbəkistan küçəsi (Baku, AZ1000). 
+                    Əlaqə telefonu: <a href="tel:+994504770405" class="text-blue-600 hover:underline">📞 +994 50 477 04 05</a>.
+                </p>
+                <p class="text-lg text-gray-700 lang-text" data-lang-key="about_us_desc_3">
+                    İş rejimimiz hər gündür və səhər yeməyi xidməti saat 09:00-14:00 arası aktivdir. Orta qəbz təxminən 12 AZN təşkil edir.
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Menu Section -->
-    <section id="menu" class="py-24 max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl serif mb-4" data-i18n="menu-title">Ləzzətli Menyu</h2>
-            <div class="w-20 h-1 bg-amber-700 mx-auto mb-8"></div>
-            
-            <!-- Category Filters -->
-            <div class="flex flex-wrap justify-center gap-4" id="category-filters">
-                <button onclick="filterMenu('all')" class="category-btn active px-6 py-2 rounded-full border border-stone-300 text-sm font-medium transition-all" data-i18n="cat-all">Hamısı</button>
-                <button onclick="filterMenu('coffee')" class="category-btn px-6 py-2 rounded-full border border-stone-300 text-sm font-medium transition-all" data-i18n="cat-coffee">Qəhvələr</button>
-                <button onclick="filterMenu('food')" class="category-btn px-6 py-2 rounded-full border border-stone-300 text-sm font-medium transition-all" data-i18n="cat-food">Yeməklər</button>
-                <button onclick="filterMenu('breakfast')" class="category-btn px-6 py-2 rounded-full border border-stone-300 text-sm font-medium transition-all" data-i18n="cat-breakfast">Səhər Yeməyi</button>
-            </div>
-        </div>
+    <section id="menu" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-10 lang-text" data-lang-key="our_menu_title">Menyumuz</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8" id="menu-grid">
-            <!-- JS will render items here -->
+            <!-- Category Tabs -->
+            <div class="flex justify-center mb-8 space-x-4">
+                <button class="tab-button px-6 py-3 rounded-lg text-lg font-medium bg-gray-300 hover:bg-gray-400 focus:outline-none transition duration-200 active" data-category="all" data-lang-key="all">Hamısı</button>
+                <button class="tab-button px-6 py-3 rounded-lg text-lg font-medium bg-gray-300 hover:bg-gray-400 focus:outline-none transition duration-200" data-category="coffees" data-lang-key="coffees">Qəhvələr</button>
+                <button class="tab-button px-6 py-3 rounded-lg text-lg font-medium bg-gray-300 hover:bg-gray-400 focus:outline-none transition duration-200" data-category="breakfast" data-lang-key="breakfast">Səhər Yeməyi</button>
+                <button class="tab-button px-6 py-3 rounded-lg text-lg font-medium bg-gray-300 hover:bg-gray-400 focus:outline-none transition duration-200" data-category="snacks" data-lang-key="snacks">Qəlyanaltılar</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="product-list" class="product-grid">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="flex justify-center mt-10">
+                <button id="load-more" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-200 hidden lang-text" data-lang-key="load_more">Daha çox göstər</button>
+            </div>
         </div>
     </section>
 
-    <!-- About/Info Section -->
-    <section id="about" class="py-24 bg-stone-900 text-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop" class="rounded-3xl shadow-2xl" alt="Cafe">
-                <div class="absolute -bottom-6 -right-6 bg-amber-700 p-8 rounded-3xl hidden md:block">
-                    <span class="text-5xl font-bold serif">9/10</span>
-                    <p class="text-sm uppercase tracking-widest opacity-80" data-i18n="about-rating">Müştəri Reytinqi</p>
-                </div>
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-16 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-10 lang-text" data-lang-key="customer_reviews_title">Müştəri Rəyləri</h2>
+            <div class="text-xl text-yellow-500 mb-6">
+                <span class="font-bold lang-text" data-lang-key="overall_rating">Ümumi Reytinq:</span> 9 / 10
             </div>
-            <div>
-                <h2 class="text-4xl serif mb-6 leading-tight" data-i18n="about-title">Zesto-ya Xoş Gəlmisiniz</h2>
-                <p class="text-stone-400 mb-8 text-lg leading-relaxed" data-i18n="about-desc">
-                    Biz sadəcə qəhvə satmırıq, biz sizə rahatlıq, enerji və ləzzət təklif edirik. Bakının ən səmimi guşələrindən birində, həm işləmək, həm də istirahət etmək üçün yaradılmış xüsusi atmosferimizlə sizi gözləyirik.
-                </p>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-clock text-amber-600 w-6"></i>
-                        <span data-i18n="about-hours">İş saatları: Hər gün (Səhər yeməyi: 09:00-14:00)</span>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-wallet text-amber-600 w-6"></i>
-                        <span data-i18n="about-bill">Orta qəbz: 12 AZN</span>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <i class="fa-solid fa-motorcycle text-amber-600 w-6"></i>
-                        <span data-i18n="about-delivery">Wolt və Paket xidməti mövcuddur</span>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <p class="text-lg italic text-gray-800 mb-4 lang-text" data-lang-key="review_1">
+                        "Noutbukla gəlib rahat işləmək, dərs oxumaq və ya vaxt keçirmək üçün çox əlverişli məkandır (Pulsuz Wi-Fi mövcuddur)."
+                    </p>
+                    <p class="font-semibold text-gray-900">- Aygül H.</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <p class="text-lg italic text-gray-800 mb-4 lang-text" data-lang-key="review_2">
+                        "Rahat yay terrası var. Müştərilər həm daxili dizaynı, həm də açıq havadakı oturma sahəsini bəyənirlər."
+                    </p>
+                    <p class="font-semibold text-gray-900">- Samir Z.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 max-w-7xl mx-auto px-6 text-center">
-        <h2 class="text-4xl serif mb-12" data-i18n="contact-title">Bizimlə Əlaqə</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="p-8 rounded-3xl border border-stone-200 hover:bg-white hover:shadow-xl transition-all">
-                <i class="fa-solid fa-location-dot text-3xl text-amber-700 mb-4"></i>
-                <h4 class="font-bold mb-2" data-i18n="cont-addr-title">Ünvan</h4>
-                <p class="text-stone-500">Bakı şəhəri, Nizami rayonu, Özbəkistan küçəsi</p>
+    <section id="contact" class="py-16 bg-gray-800 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-8 lang-text" data-lang-key="contact_us_title">Əlaqə</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center md:space-x-12 space-y-8 md:space-y-0">
+                <div class="text-lg">
+                    <p class="mb-2 lang-text" data-lang-key="address"><strong>Ünvan:</strong> Bakı şəhəri, Nizami rayonu, Özbəkistan küçəsi (Baku, AZ1000)</p>
+                    <p class="mb-2 lang-text" data-lang-key="phone"><strong>Telefon:</strong> <a href="tel:+994504770405" class="text-blue-300 hover:underline">📞 +994 50 477 04 05</a></p>
+                    <p class="mb-2 lang-text" data-lang-key="working_hours"><strong>İş Rejimi:</strong> Hər gün</p>
+                    <p class="lang-text" data-lang-key="breakfast_hours"><strong>Səhər yeməyi:</strong> 09:00-14:00</p>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="relative h-64 md:h-80 w-full rounded-lg overflow-hidden shadow-xl">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.3879978000494!2d49.8803567156942!3d40.37750867936997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d0f19c23573%3A0x8e8a6c8b0b9b3b0!2sZesto!5e0!3m2!1sen!2saz!4v1678912345678!5m2!1sen!2saz"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referre
+                            " class="absolute inset-0"></iframe>
+                    </div>
+                </div>
             </div>
-            <div class="p-8 rounded-3xl border border-stone-200 hover:bg-white hover:shadow-xl transition-all">
-                <i class="fa-solid fa-phone-volume text-3xl text-amber-700 mb-4"></i>
-                <h4 class="font-bold mb-2" data-i18n="cont-phone-title">Telefon</h4>
-                <p class="text-stone-500">+994 50 477 04 05</p>
-            </div>
-            <div class="p-8 rounded-3xl border border-stone-200 hover:bg-white hover:shadow-xl transition-all">
-                <i class="fa-solid fa-envelope text-3xl text-amber-700 mb-4"></i>
-                <h4 class="font-bold mb-2" data-i18n="cont-mail-title">Email</h4>
-                <p class="text-stone-500">hello@zesto.az</p>
+            <div class="mt-8 text-xl">
+                <p class="lang-text" data-lang-key="delivery_options"><strong>Çatdırılma:</strong> Paket (Takeaway) və Wolt vasitəsilə mövcuddur.</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-stone-100 py-12 border-t border-stone-200">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-2xl font-bold serif text-stone-900">ZESTO<span class="text-amber-700">.</span></div>
-            <p class="text-stone-500 text-sm">&copy; 2023 Zesto Coffee House. All rights reserved.</p>
-            <div class="flex gap-4 text-xl text-stone-600">
-                <a href="#" class="hover:text-amber-700 transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="hover:text-amber-700 transition-colors"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="hover:text-amber-700 transition-colors"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
-        </div>
+    <footer class="bg-gray-900 text-white p-6 text-center">
+        <p class="lang-text" data-lang-key="footer_note">&copy; 2024 Zesto Kafe-Qəhvəxana. Bütün hüquqlar qorunur.</p>
     </footer>
 
     <script>
-        const translations = {
-            az: {
-                "nav-home": "Ana Səhifə", "nav-menu": "Menyu", "nav-about": "Haqqımızda", "nav-contact": "Əlaqə",
-                "hero-title": "Səhərinizə Zəriflik Qatın", "hero-subtitle": "Bakının mərkəzində, rahat mühit, premium qəhvələr və ləzzətli səhər
+        const products = [
+            { id: 1, name_az: 'Raf (Vanil)', name_ru: 'Раф (Ваниль)', name_en: 'Vanilla Raf', category: 'coffees', price: '7 AZN', image: 'https://source.unsplash.com/400x300/?vanilla-raf-coffee' },
+            { id: 2, name_az: 'Raf (Lavanda)', name_ru: 'Раф (Лаванда)', name_en: 'Lavender Raf', category: 'coffees', price: '7 AZN', image: 'https://source.unsplash.com/400x300/?lavender-coffee' },
+            { id: 3, name_az: 'Caramel Macchiato', name_ru: 'Карамельный Маккиато', name_en: 'Caramel Macchiato', category: 'coffees', price: '8 AZN', image: 'https://source.unsplash.com/400x300/?caramel-macchiato' },
+            { id: 4, name_az: 'Spanish Latte', name_ru: 'Испанский Латте', name_en: 'Spanish Latte', category: 'coffees', price: '7.5 AZN', image: 'https://source.unsplash.com/400x300/?spanish-latte' },
+            { id: 5, name_az: 'Flat White', name_ru: 'Флэт Уайт', name_en: 'Flat White', category: 'coffees', price: '6.5 AZN', image: 'https://source.unsplash.com/400x300/?flat-white-coffee' },
+            { id: 6, name_az: 'Babl-Qəhvə', name_ru: 'Бабл-кофе', name_en: 'Bubble Coffee', category: 'coffees', price: '9 AZN', image: 'https://source.unsplash.com/400x300/?bubble-coffee' },
+            { id: 7, name_az: 'Matça Latte', name_ru: 'Матча Латте', name_en: 'Matcha Latte', category: 'coffees', price: '8.5 AZN', image: 'https://source.unsplash.com/400x300/?matcha-latte' },
+            { id: 8, name_az: 'Espresso', name_ru: 'Эспрессо', name_en: 'Espresso', category: 'coffees', price: '4 AZN', image:
